@@ -43,7 +43,7 @@ public class BulletCollisionListener implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
-
+        // has no use
     }
 
 
