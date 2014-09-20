@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Gradle: jlayer-1.0.1-gdx">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.jlayer/jlayer/1.0.1-gdx/7cca83cec5c1b2f011362f4d85aabd71a73b049d/jlayer-1.0.1-gdx.jar" />
+  </library>
+  <library name="Gradle: gdx-box2d-1.1.0">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d/1.1.0/919bff3c5e92062ee3413f86076c089bd810b5b3/gdx-box2d-1.1.0.jar" />
+  </library>
+  <library name="Gradle: box2dlights-1.2">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.box2dlights/box2dlights/1.2/8b3baf8bd6d5fdf7052d9798977133f46a9e7a05/box2dlights-1.2.jar" />
+  </library>
+  <library name="Gradle: lwjgl-2.9.1">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl/2.9.1/f58c5aabcef0e41718a564be9f8e412fff8db847/lwjgl-2.9.1.jar" />
+  </library>
+  <library name="Gradle: jutils-1.0.0">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/net.java.jutils/jutils/1.0.0/e12fe1fda814bd348c1579329c86943d2cd3c6a6/jutils-1.0.0.jar" />
+  </library>
+  <library name="Gradle: gdx-platform-1.1.0-natives-desktop">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-platform/1.1.0/1c7ea4239c2d9adda420c15985fe3885c481fdcf/gdx-platform-1.1.0-natives-desktop.jar" />
+  </library>
+  <library name="Gradle: gdx-1.1.0">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx/1.1.0/686f5a609c717eb0769d3b954c501a49bf4fe351/gdx-1.1.0.jar" />
+  </library>
+  <library name="Gradle: gdx-backend-lwjgl-1.1.0">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-backend-lwjgl/1.1.0/eafa409559820c1696e165e1280435f1332fc32b/gdx-backend-lwjgl-1.1.0.jar" />
+  </library>
+  <library name="Gradle: lwjgl-platform-2.9.1-natives-linux">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl-platform/2.9.1/aa9aae879af8eb378e22cfc64db56ec2ca9a44d1/lwjgl-platform-2.9.1-natives-linux.jar" />
+  </library>
+  <library name="Gradle: jinput-platform-2.0.5-natives-osx">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/53f9c919f34d2ca9de8c51fc4e1e8282029a9232/jinput-platform-2.0.5-natives-osx.jar" />
+  </library>
+  <library name="Gradle: gdx-controllers-1.1.0">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers/1.1.0/db7a1684b3c5eef9c0809ff1922021c4b5c0a30f/gdx-controllers-1.1.0.jar" />
+  </library>
+  <library name="Gradle: lwjgl_util-2.9.1">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl_util/2.9.1/290d7ba8a1bd9566f5ddf16ad06f09af5ec9b20e/lwjgl_util-2.9.1.jar" />
+  </library>
+  <library name="Gradle: lwjgl-platform-2.9.1-natives-osx">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl-platform/2.9.1/2d12c83fdfbc04ecabf02c7bc8cc54d034f0daac/lwjgl-platform-2.9.1-natives-osx.jar" />
+  </library>
+  <library name="jruby (2)">
+    <archive path="/Users/Cheryl/Desktop/DanmakuStorm/core/libs/jruby.jar" />
+  </library>
+  <library name="Gradle: jinput-platform-2.0.5-natives-windows">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/385ee093e01f587f30ee1c8a2ee7d408fd732e16/jinput-platform-2.0.5-natives-windows.jar" />
+  </library>
+  <library name="Gradle: jorbis-0.0.17">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/org.jcraft/jorbis/0.0.17/8872d22b293e8f5d7d56ff92be966e6dc28ebdc6/jorbis-0.0.17.jar" />
+  </library>
+  <library name="Gradle: gdx-controllers-desktop-1.1.0">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers-desktop/1.1.0/65a1c8a17ed892327a51fbba9dc273669302ba83/gdx-controllers-desktop-1.1.0.jar" />
+  </library>
+  <library name="Gradle: gdx-box2d-platform-1.1.0-natives-desktop">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-box2d-platform/1.1.0/9eff8773cc82bc5007610cd9be665e4fc2b2a7e6/gdx-box2d-platform-1.1.0-natives-desktop.jar" />
+  </library>
+  <library name="Gradle: gdx-freetype-1.1.0">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype/1.1.0/dcd25348942c431ab6353c02870fc2e4756ff259/gdx-freetype-1.1.0.jar" />
+  </library>
+  <library name="Gradle: jinput-platform-2.0.5-natives-linux">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput-platform/2.0.5/7ff832a6eb9ab6a767f1ade2b548092d0fa64795/jinput-platform-2.0.5-natives-linux.jar" />
+  </library>
+  <library name="Gradle: lwjgl-platform-2.9.1-natives-windows">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/org.lwjgl.lwjgl/lwjgl-platform/2.9.1/4c517eca808522457dd95ee8fc1fbcdbb602efbe/lwjgl-platform-2.9.1-natives-windows.jar" />
+  </library>
+  <library name="Gradle: jinput-2.0.5">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/net.java.jinput/jinput/2.0.5/39c7796b469a600f72380316f6b1f11db6c2c7c4/jinput-2.0.5.jar" />
+  </library>
+  <library name="Gradle: gdx-tools-1.1.0">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-tools/1.1.0/328feb977698626fab437c93635ebec83e3062de/gdx-tools-1.1.0.jar" />
+  </library>
+  <library name="Gradle: gdx-controllers-platform-1.1.0-natives-desktop">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-controllers-platform/1.1.0/89d87cec97a4a08624057d95579093ce1ec166f7/gdx-controllers-platform-1.1.0-natives-desktop.jar" />
+  </library>
+  <library name="jruby">
+    <archive path="/Users/Cheryl/Desktop/DanmakuStorm/core/libs/jruby.jar" />
+  </library>
+  <library name="Gradle: gdx-freetype-platform-1.1.0-natives-desktop">
+    <archive path="/Users/Cheryl/.gradle/caches/modules-2/files-2.1/com.badlogicgames.gdx/gdx-freetype-platform/1.1.0/ab7c1dc39c919bf1da4593aced892d8d352517b9/gdx-freetype-platform-1.1.0-natives-desktop.jar" />
+  </library>
+</eclipse-userlibraries>
+
