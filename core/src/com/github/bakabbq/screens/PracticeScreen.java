@@ -22,7 +22,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.github.bakabbq.*;
-import com.github.bakabbq.audio.AudioBank;
 import com.github.bakabbq.audio.MusicBox;
 import com.github.bakabbq.background.DecalBackground;
 import com.github.bakabbq.background.ThBackground;
@@ -30,12 +29,11 @@ import com.github.bakabbq.bullets.Bullet;
 import com.github.bakabbq.bullets.BulletDef;
 import com.github.bakabbq.bullets.Laser;
 import com.github.bakabbq.bullets.PlayerBullet;
+import com.github.bakabbq.datas.BackgroundRegistry;
 import com.github.bakabbq.datas.FontBank;
 import com.github.bakabbq.datas.ScoreBoard;
 import com.github.bakabbq.datas.ScreenshotTaker;
-import com.github.bakabbq.effects.BossEffects;
-import com.github.bakabbq.effects.SlaveParticleEffect;
-import com.github.bakabbq.effects.ThEffect;
+import com.github.bakabbq.effects.*;
 import com.github.bakabbq.screens.dayselection.StageData;
 import com.github.bakabbq.shooters.BulletShooter;
 import com.github.bakabbq.shooters.EnemyShooter;
@@ -71,6 +69,16 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
     public ModelBatch modelBatch;
     public Model model;
     public int memoryTime; // used to determine
+
+    public BackgroundManager bgManager;
+    public BackgroundRegistry backgroundRegistry;
+    /**
+     * Called when the screen should render itself.
+     *
+     * @param delta The time in seconds since the last render.
+     */
+
+    public int timer;
     //the code definitely looks ugly down there
     DanmakuGame game; // game object, essential for rendering
     DanmakuScene scene; // the scene, tool class
@@ -99,22 +107,13 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
     DebugValues debugValues;
     ThBoss boss;
     Array<SlaveParticleEffect> slaveParticles = new Array<SlaveParticleEffect>();
-    /**
-     * Called when the screen should render itself.
-     *
-     * @param delta The time in seconds since the last render.
-     */
-
-    int timer;
     int currentSpellIndex;
-    //GameData.getInstance().getScoreBoard(getStageData().name)
     ScoreBoard sb = new ScoreBoard();
     Array<Body> toDispose = new Array<Body>();
     private boolean paused;
 
     private PracticeScreen() {
         manager = new AssetManager();
-        //manager.load("models/testObj.obj", Model.class);
         this.game = DanmakuGame.getInstance();
         this.scene = new DanmakuScene(TestSanae.class, TestSpellCard.class, ThBackground.class);
         JRubyClassLoader.init();
@@ -122,6 +121,9 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
 
 
         backgroundBatch = new SpriteBatch();
+        bgManager = new BackgroundManager();
+        backgroundRegistry = new BackgroundRegistry();
+        backgroundRegistry.register("default", new ThBackground(this));
         initUiContainer();
         initObjectContainers();
         loadUiComponents();
@@ -248,7 +250,7 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
         backgroundBatch.begin();
 
         //background.update(backgroundBatch);
-
+        //bgManager.render(backgroundBatch);
         for (ThBoss singleBoss : bosses) {
             bossEffects.update(singleBoss, backgroundBatch);
         }
@@ -287,6 +289,10 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
             increaseScore(10);
     }
 
+    public void onPlayerBeingHit() {
+        timer += 3600 / 3; // 20 minutes punishment
+    }
+
     void renderSlaveParticles(){
         for (SlaveParticleEffect singleParticle : slaveParticles) {
             singleParticle.particle.draw(backgroundBatch, 0.9f);
@@ -318,34 +324,40 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
         }
 
         for (DanmakuPlayer singlePlayer : players) {
-            game.batch.draw(
-                    singlePlayer.getTexture(),
-                    singlePlayer.getX() - 8,
-                    singlePlayer.getY() - 16,
-                    singlePlayer.getTexture().getRegionWidth() / 2,
-                    singlePlayer.getTexture().getRegionHeight() / 2,
-                    singlePlayer.getTexture().getRegionWidth(),
-                    singlePlayer.getTexture().getRegionHeight(),
-                    0.2f,
-                    0.2f,
-                    0
+            if (singlePlayer.isInvincible() && singlePlayer.invincibleTimer % 20 <= 10) {
 
-            );
-
-            for (DanmakuOption singleOption : singlePlayer.options) {
+            } else {
                 game.batch.draw(
-                        singleOption.texture,
-                        singleOption.x,
-                        singleOption.y,
-                        singleOption.texture.getRegionWidth() / 2,
-                        singleOption.texture.getRegionHeight() / 2,
-                        singleOption.texture.getRegionWidth(),
-                        singleOption.texture.getRegionHeight(),
+                        singlePlayer.getTexture(),
+                        singlePlayer.getX() - 8,
+                        singlePlayer.getY() - 16,
+                        singlePlayer.getTexture().getRegionWidth() / 2,
+                        singlePlayer.getTexture().getRegionHeight() / 2,
+                        singlePlayer.getTexture().getRegionWidth(),
+                        singlePlayer.getTexture().getRegionHeight(),
                         0.2f,
                         0.2f,
-                        singleOption.angle
+                        0
+
                 );
+
+                for (DanmakuOption singleOption : singlePlayer.options) {
+                    game.batch.draw(
+                            singleOption.texture,
+                            singleOption.x,
+                            singleOption.y,
+                            singleOption.texture.getRegionWidth() / 2,
+                            singleOption.texture.getRegionHeight() / 2,
+                            singleOption.texture.getRegionWidth(),
+                            singleOption.texture.getRegionHeight(),
+                            0.2f,
+                            0.2f,
+                            singleOption.angle
+                    );
+                }
             }
+
+
         }
 
 
@@ -440,12 +452,14 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
 
     void renderUI() {
         uiRenderer.render(game.uiBatch);
-
+        SpellCardBonusEffect.getInstance().render(game.uiBatch);
         bossEffects.spellEffect.update();
         int graze = getPlayer().grazeCnt;
         getFontBank().calisto.draw(game.uiBatch, "" + graze, 515, 480 - 205);
         getFontBank().calisto.draw(game.uiBatch, getScoreText(), 515, 480 - 170);
         getFontBank().calisto.draw(game.uiBatch, getHiScoreText(), 515, 480 - 150);
+        if (bosses.get(0).currentSpellcard() != null)
+            getFontBank().calisto.draw(game.uiBatch, "Bonus: " + bosses.get(0).currentSpellcard().bonus, 460, 480 - 125);
         renderTime();
         renderFps();
     }
@@ -557,8 +571,12 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
             onSpellClear();
     }
 
+    void displaySpellCardBonus() {
+
+    }
     public void onSpellClear() {
         memoryTime = timer;
+        bgManager.setBackground(backgroundRegistry.get("default"));
         if (bosses.size == 0) {
             inviteNewJsonBoss();
         } else {
@@ -706,7 +724,7 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
     public PlayerBullet addPlayerBullet(BulletDef bd, float x, float y, float angle) {
         PlayerBullet bullet;
         bullet = new PlayerBullet(bd, world, x, y, angle);
-        musicBox.playSe(AudioBank.bulletAppear);
+//        musicBox.playSe(AudioBank.bulletAppear);
         bullets.add(bullet);
         return bullet;
     }

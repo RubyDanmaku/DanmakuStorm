@@ -12,6 +12,7 @@ import com.github.bakabbq.IDanmakuWorld;
 import com.github.bakabbq.bullets.BulletDef;
 import com.github.bakabbq.bullets.PlayerBullet;
 import com.github.bakabbq.effects.SlowEffect;
+import com.github.bakabbq.screens.PracticeScreen;
 
 /**
  * Created by LBQ on 5/28/14.
@@ -36,7 +37,8 @@ public class DanmakuPlayer {
     public TextureRegion[][] slicedSheet;
     public IDanmakuWorld ground;
     public Body playerBody;
-    public Array<DanmakuOption> options = new Array() {};
+    public Array<DanmakuOption> options = new Array() {
+    };
 
     public int grazeCnt;
     public int power;
@@ -59,19 +61,23 @@ public class DanmakuPlayer {
         createBody();
         addOption();
         addOption();
-
-
         grazeCounter = new PlayerGrazeCounter(this);
     }
 
     public boolean isInvincible() {
-        return invincibleTimer <= 0;
+        return invincibleTimer > 0;
     }
 
     public void updateInvincible() {
         invincibleTimer--;
-        if (invincibleTimer >= -1)
+        if (invincibleTimer <= -1)
             invincibleTimer = 0;
+    }
+
+    public void onHit() {
+        invincibleTimer = 90;
+        PracticeScreen.getInstance().clearBullets();
+
     }
 
     public void addOption() {
@@ -123,13 +129,13 @@ public class DanmakuPlayer {
     }
 
     public void updateShoot() {
-        if (timer % 4 == 0 && Gdx.input.isKeyPressed(Input.Keys.Z)){
-            if (slowMode){
+        if (timer % 4 == 0 && Gdx.input.isKeyPressed(Input.Keys.Z)) {
+            if (slowMode) {
                 options.get(0).nWayAngeledSpreadShot(PlayerBullet.reimuHoming, 1, 4, 178, 15, 580);
-                options.get(1).nWayAngeledSpreadShot(PlayerBullet.reimuHoming,1,4,188,15,580);
-            } else{
-                for (DanmakuOption singleOption : options){
-                    singleOption.nWayAngeledSpreadShot(PlayerBullet.reimuHoming,1,4,183,30,580);
+                options.get(1).nWayAngeledSpreadShot(PlayerBullet.reimuHoming, 1, 4, 188, 15, 580);
+            } else {
+                for (DanmakuOption singleOption : options) {
+                    singleOption.nWayAngeledSpreadShot(PlayerBullet.reimuHoming, 1, 4, 183, 30, 580);
                 }
             }
         }
@@ -155,7 +161,7 @@ public class DanmakuPlayer {
             generalV = 0.3f;
 
         } else {
-            if(slowMode)
+            if (slowMode)
                 onSlowModeCancel();
         }
         //this.playerBody.setLinearVelocity(0f,0f);
@@ -231,7 +237,7 @@ public class DanmakuPlayer {
         }
     }
 
-    void onSlowModeCancel(){
+    void onSlowModeCancel() {
         slowMode = false;
         ground.clearEffect(new SlowEffect());
     }
@@ -248,8 +254,8 @@ public class DanmakuPlayer {
         ground.addPlayerBullet(bd, getX() + xOff, getY() + yOff, 180).setSpeed(speed);
     }
 
-    public void setPos(float x, float y){
-        this.playerBody.setTransform(x,y,0);
+    public void setPos(float x, float y) {
+        this.playerBody.setTransform(x, y, 0);
     }
 
 

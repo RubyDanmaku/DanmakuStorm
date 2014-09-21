@@ -3,10 +3,13 @@ package com.github.bakabbq.shooters;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.*;
 import com.github.bakabbq.BulletCollisionListener;
 import com.github.bakabbq.IDanmakuWorld;
 import com.github.bakabbq.bullets.BulletDef;
+import com.github.bakabbq.screens.PracticeScreen;
+import com.github.bakabbq.shooters.players.DanmakuPlayer;
 
 /**
  * Created by LBQ on 5/28/14.
@@ -149,6 +152,15 @@ public class EnemyShooter extends BulletShooter {
         if (this.hp <= 0) {
             onDeath();
         }
+    }
+
+    public DanmakuPlayer getPlayer() {
+        return PracticeScreen.getInstance().getPlayer();
+    }
+
+
+    public float getPlayerAngle() {
+        return MathUtils.atan2(this.getY() - getPlayer().getY(), this.getX() - getPlayer().getX());
     }
 
     public void spawnSlave(EnemyShooter slave) {

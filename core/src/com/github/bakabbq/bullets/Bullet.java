@@ -1,13 +1,10 @@
 package com.github.bakabbq.bullets;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.*;
 import com.github.bakabbq.BulletCollisionListener;
-import com.github.bakabbq.DanmakuGame;
-import com.github.bakabbq.GdxGround;
 import com.github.bakabbq.IDanmakuWorld;
 
 
@@ -42,7 +39,7 @@ public class Bullet {
     public boolean grazed;
     public boolean collided;
     public boolean pause;
-     public IDanmakuWorld danmakuWorld;
+    public IDanmakuWorld danmakuWorld;
     //Destroy Flag - once marked, it will be garbage dumped
     public boolean destroyFlag;
     public int timer;
@@ -61,7 +58,7 @@ public class Bullet {
         body.setUserData(this);
         FixtureDef fd = bd.fixtureD;
         fd.filter.categoryBits = BulletCollisionListener.ENEMY_BULLET;
-        fd.filter.maskBits = (short)(BulletCollisionListener.PLAYER | 0x001 | BulletCollisionListener.PLAYER_BULLET);
+        fd.filter.maskBits = (short) (BulletCollisionListener.PLAYER | 0x001 | BulletCollisionListener.PLAYER_BULLET);
         this.fixture = body.createFixture(fd);
         body.setTransform(x, y, angle);
         MassData md = new MassData();
@@ -111,21 +108,22 @@ public class Bullet {
         aimAt(angle);
         float forceAngle = (angle + 270f) / 180f * (float) Math.PI;
         //body.applyLinearImpulse(MathUtils.cos(forceAngle) * speed, MathUtils.sin(forceAngle) * speed, body.getPosition().x, body.getPosition().y, true);
-        body.setLinearVelocity(speed * MathUtils.cos(forceAngle),speed * MathUtils.sin(forceAngle));
+        body.setLinearVelocity(speed * MathUtils.cos(forceAngle), speed * MathUtils.sin(forceAngle));
 
     }
 
     public void setSpeed(float speed) {
         float forceAngle = (body.getAngle() + 270f) / 180f * (float) Math.PI;
         //body.applyLinearImpulse(MathUtils.cos(forceAngle) * speed, MathUtils.sin(forceAngle) * speed, body.getPosition().x, body.getPosition().y, true);
-        body.setLinearVelocity(speed * MathUtils.cos(forceAngle),speed * MathUtils.sin(forceAngle));
+        body.setLinearVelocity(speed * MathUtils.cos(forceAngle), speed * MathUtils.sin(forceAngle));
     }
 
     public void update() {
         timer++;
-        if(pause)
+        if (pause)
             return;
         this.bd.modifyBullet(this);
+
     }
 
     public int getAlpha() {
@@ -133,61 +131,61 @@ public class Bullet {
     }
 
 
-    public void onGraze(){
+    public void onGraze() {
         danmakuWorld.getPlayer().grazeCnt += 1;
         grazed = true;
     }
 
-    public void stop(){
-        body.setLinearVelocity(0,0);
+    public void stop() {
+        body.setLinearVelocity(0, 0);
         body.setAngularVelocity(0);
     }
 
-    public boolean canGraze(){
+    public boolean canGraze() {
         return !grazed;
     }
 
-    public TextureRegion getCreationTexture(){
+    public TextureRegion getCreationTexture() {
         return bd.onCreationTexture;
     }
 
-    public void dispose(){
+    public void dispose() {
         this.world.destroyBody(this.body);
     }
 
-    public float getTowardPlayerAngle(){
+    public float getTowardPlayerAngle() {
         float xDiff = getTowardPlayerX();
         float yDiff = getTowardPlayerY();
         return ((float) Math.atan(yDiff / xDiff));
     }
 
-    public float getTowardPlayerX(){
+    public float getTowardPlayerX() {
         float xDiff = getX() - danmakuWorld.getPlayer().getX();
-        return  xDiff;
+        return xDiff;
     }
 
-    public float getTowardPlayerY(){
+    public float getTowardPlayerY() {
         float yDiff = getY() - danmakuWorld.getPlayer().getY();
         return yDiff;
     }
 
-    public boolean hasCreationEffect(){
+    public boolean hasCreationEffect() {
         return this.timer <= 5;
     }
 
-    public void aimAt(float angle){
+    public void aimAt(float angle) {
         this.body.setTransform(getX(), getY(), angle);
     }
 
-    public boolean canDestroy(){
+    public boolean canDestroy() {
         return destroyFlag;
     }
 
-    public void onHit(){
+    public void onHit() {
         destroyFlag = true;
     }
 
-    public boolean stillCollide(){
+    public boolean stillCollide() {
         return this.alpha == bd.alpha;
     }
 }

@@ -13,12 +13,26 @@ public class SpellCard {
     public int timer;
     public int hp;
     public int clearTimer;
+    public int bonus;
+    public int spellcardBonus;
+    public int oriBonus;
 
     public SpellCard(ThBoss owner) {
         this.owner = owner;
         this.timer = 0;
         this.hp = maxHp();
+
         updateAttributes();
+        int multiplyer = spell ? 15 : 8;
+        this.bonus = 80000 * multiplyer;
+        this.oriBonus = bonus;
+    }
+
+    public void updateBonus() {
+        if (timer <= 5 * 60)
+            return;
+        int decrease = (int) (0.6f * oriBonus / 3600);
+        bonus -= decrease;
     }
 
     public int maxHp() {
@@ -41,6 +55,7 @@ public class SpellCard {
         timer++;
         clearTimer++;
         mainLoop();
+        updateBonus();
     }
 
     public void mainLoop() {

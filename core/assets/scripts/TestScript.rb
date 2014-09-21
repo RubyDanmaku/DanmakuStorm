@@ -47,10 +47,7 @@ class TestScript < BaseScript
   def update
   	super
     #puts moving?
-    if(@switch.nil?)
-      move_to_desired_position
-      @switch = 1
-    end
+    
     return if moving?
     
     if(@slave_called.nil?)
@@ -94,21 +91,7 @@ class TestScript < BaseScript
       #move_to_pos 10, 30, 2
     end
     
-    def move_to_desired_position
-      puts cas_to_angle(1,1)
-      if(owner.slaves)
-        to_delete = []
-        owner.slaves.each do |s|
-          s.receiveDamage(1000000)
-          owner.slaves.delete s
-          puts "wheee"
-        end
-      end
     
-      puts owner.slaves.length
-      #position_set_init
-      move_to_uppercenter
-    end
     
     
     

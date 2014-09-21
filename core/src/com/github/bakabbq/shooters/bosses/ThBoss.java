@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.github.bakabbq.IDanmakuWorld;
 import com.github.bakabbq.effects.BossEffects;
+import com.github.bakabbq.effects.SpellCardBonusEffect;
 import com.github.bakabbq.screens.PracticeScreen;
 import com.github.bakabbq.shooters.EnemyShooter;
 import com.github.bakabbq.spellcards.SpellCard;
@@ -54,7 +55,6 @@ public class ThBoss extends EnemyShooter {
     public int getTextureY(int rId) {
         return rId * 64;
     }
-
 
     public int getTextureHeight(int rId) {
         if (rId <= 1)
@@ -142,9 +142,12 @@ public class ThBoss extends EnemyShooter {
 
     @Override
     public void onDeath() {
+        PracticeScreen.getInstance().increaseScore(currentSpellcard().bonus);
+        SpellCardBonusEffect.getInstance().startDisplay("" + currentSpellcard().bonus, currentSpellcard().spell);
         ((PracticeScreen) ground).onSpellClear();
         spellCards.removeIndex(0);
         callUpdateSpellcardName();
+
         switchSpellTimerAfterSpellBreak();
     }
 

@@ -129,11 +129,20 @@ class BaseScript
 			yield if block_given?
 		end
 	end
+  
+  def player_angle
+    MathUtils.atan2(getY() - getPlayer().getY(), getX() - getPlayer().getX()) * 180 / Math::PI
+  end
 
 	def update
 		@timer += 1
+    if(@switch.nil?)
+      move_to_desired_position
+      @switch = 1
+    end
 		update_schedule
 	end
+  
   
   def position_set_init
     direct_position_set(10,140)
@@ -151,6 +160,19 @@ class BaseScript
   
   
   def move_to_desired_position
+    
+    if(owner.slaves)
+      to_delete = []
+      owner.slaves.each do |s|
+        s.receiveDamage(1000000)
+        owner.slaves.delete s
+        puts "wheee"
+      end
+    end
+  
+    puts owner.slaves.length
+    #position_set_init
+    move_to_uppercenter
   end
   
 
@@ -193,7 +215,23 @@ class BossSlave < EnemyShooter
   def initialize(owner)
     super(owner.ground)
     @owner = owner
+    @timer = 0;
   end
+  
+  def every interval, subinterval = 0
+    if(timer % interval == subinterval)
+      yield
+    end
+    
+  end
+  
+  
+  
+  def updateShoot
+    super
+    @timer+=1
+  end
+  
   
   def isSlave
     return true
@@ -249,6 +287,11 @@ module BossMovement
   def move_to_uppercenter
     move_to_pos 23, 62, 2
   end
+  
+  def move_to_center
+    move_to_pos 23, 40, 2
+  end
+  
 
 
   def finishedLeaving

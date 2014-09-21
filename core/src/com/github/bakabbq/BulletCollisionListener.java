@@ -3,7 +3,9 @@ package com.github.bakabbq;
 import com.badlogic.gdx.physics.box2d.*;
 import com.github.bakabbq.bullets.Bullet;
 import com.github.bakabbq.bullets.PlayerBullet;
+import com.github.bakabbq.screens.PracticeScreen;
 import com.github.bakabbq.shooters.EnemyShooter;
+import com.github.bakabbq.shooters.players.DanmakuPlayer;
 import com.github.bakabbq.shooters.players.PlayerGrazeCounter;
 
 /**
@@ -19,6 +21,7 @@ public class BulletCollisionListener implements ContactListener {
     public static short ITEMS = 0x012;
     public static short GRAZE = 0x014;
     public boolean goBack = false;
+    public boolean playerGotHit = false;
 
     @Override
     public void beginContact(Contact contact) {
@@ -50,14 +53,17 @@ public class BulletCollisionListener implements ContactListener {
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {
         goBack = false;
+        playerGotHit = false;
         Body bodyA = contact.getFixtureA().getBody();
         Body bodyB = contact.getFixtureB().getBody();
 
 
-        if (bodyA.getLinearDamping() >= 5) {
-            //goBack = true;
-        }
-        if (bodyB.getLinearDamping() >= 5) {
+        if (bodyA.getUserData() instanceof DanmakuPlayer || bodyB.getUserData() instanceof DanmakuPlayer) {
+            if (!PracticeScreen.getInstance().getPlayer().isInvincible()) {
+                playerGotHit = true;
+                PracticeScreen.getInstance().getPlayer().onHit();
+                PracticeScreen.getInstance().onPlayerBeingHit();
+            }
             //goBack = true;
         }
 
