@@ -36,8 +36,10 @@ public class JsonBoss extends ThBoss {
         //mainTexture = new Texture(Gdx.files.internal("bosses/stg6enm.png"));
     }
 
+    /*
     @Override
     public void initMainTexture() {
         mainTexture = new Texture(Gdx.files.internal("bosses/stg6enm.png"));
     }
+     */
 }

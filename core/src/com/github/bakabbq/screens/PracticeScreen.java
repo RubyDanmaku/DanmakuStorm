@@ -554,6 +554,7 @@ public class PracticeScreen implements Screen, IDanmakuWorld {
         Gdx.app.log("Test", "5");
         Gdx.app.log("", "" + bosses.get(0).spellCards.size);
         bossEffects.spellEffect.startSpell(getStageData().scripts.get(currentSpellIndex).spellName);
+
     }
 
     public void inviteNewJsonBoss() {

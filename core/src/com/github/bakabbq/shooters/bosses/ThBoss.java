@@ -99,7 +99,8 @@ public class ThBoss extends EnemyShooter {
                 cId = (stateTimer > 3 ? (3) : (stateTimer % 4));
                 break;
         }
-        this.initMainTexture();
+        if (mainTexture == null)
+            initMainTexture();
         int textureCellWidth = this.mainTexture.getWidth() / 4;
         TextureRegion resultTexture = new TextureRegion(mainTexture, cId * textureCellWidth, getTextureY(rId), textureCellWidth, getTextureHeight(rId));
         if (flip)

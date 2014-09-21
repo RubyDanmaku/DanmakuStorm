@@ -109,13 +109,28 @@ public class Bullet {
         float forceAngle = (angle + 270f) / 180f * (float) Math.PI;
         //body.applyLinearImpulse(MathUtils.cos(forceAngle) * speed, MathUtils.sin(forceAngle) * speed, body.getPosition().x, body.getPosition().y, true);
         body.setLinearVelocity(speed * MathUtils.cos(forceAngle), speed * MathUtils.sin(forceAngle));
+    }
 
+    public float getSpeed() {
+        return body.getLinearVelocity().len();
     }
 
     public void setSpeed(float speed) {
         float forceAngle = (body.getAngle() + 270f) / 180f * (float) Math.PI;
         //body.applyLinearImpulse(MathUtils.cos(forceAngle) * speed, MathUtils.sin(forceAngle) * speed, body.getPosition().x, body.getPosition().y, true);
         body.setLinearVelocity(speed * MathUtils.cos(forceAngle), speed * MathUtils.sin(forceAngle));
+    }
+
+    public float getAngle() {
+        return body.getAngle();
+    }
+
+    public void setAngle(float angle) {
+        setSpeed(angle, getSpeed());
+    }
+
+    public void accelerate(float increment) {
+        setSpeed(getSpeed() + increment);
     }
 
     public void update() {
